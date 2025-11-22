@@ -1,0 +1,151 @@
+@import "tailwindcss";
+#root{
+  width: 100%;
+}
+:root{
+  font-family: 'Poppins', sans-serif;
+  --container-xs: 14rem;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-image: repeating-linear-gradient(90deg, rgba(174,174,174, 0.09) 0px, rgba(174,174,174, 0.09) 1px,transparent 1px, transparent 60px),
+    repeating-linear-gradient(0deg, rgba(174,174,174, 0.09) 0px, rgba(174,174,174, 0.09) 1px,transparent 1px, transparent 60px),
+    repeating-linear-gradient(0deg, rgba(174,174,174, 0.09) 0px, rgba(174,174,174, 0.09) 1px,transparent 1px, transparent 10px),
+    repeating-linear-gradient(90deg, rgba(174,174,174, 0.09) 0px, rgba(174,174,174, 0.09) 1px,transparent 1px, transparent 10px),
+    linear-gradient(90deg, rgb(245,245,245),rgb(245,245,245));
+  }
+  header, footer{
+   background-image: radial-gradient(circle at center center, transparent,rgb(255,255,255)),
+   repeating-linear-gradient(135deg, rgb(255,255,255) 0px, rgb(255,255,255) 2px,transparent 2px, transparent 10px,rgb(255,255,255) 10px, rgb(255,255,255) 11px,transparent 11px, transparent 21px),
+   repeating-linear-gradient(45deg, rgb(242,242,242) 0px, rgb(242,242,242) 4px,transparent 4px, transparent 8px),
+   linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #232323;
+  }
+  ::-webkit-scrollbar{
+    background: linear-gradient(0deg, #E5E7EB, #9CA3AF, #E5E7EB);
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb{
+      background: #9ca3af;
+      width: 100%;
+      border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+
+  /* CUSTOM SCROLLBAR */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px; /* Scrollbar height */
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #e5e7eb; /* gray-200 */
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #9ca3af; /* gray-400 */
+    border-radius: 20px;
+    width: fit-content;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* gray-500 */
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #ffffffde;
+    background-image: repeating-linear-gradient(90deg, #6b6b6b17 0px, #6b6b6b17 1px,transparent 1px, transparent 60px),
+    repeating-linear-gradient(0deg, #6b6b6b17 0px, #6b6b6b17 1px,transparent 1px, transparent 60px),
+    repeating-linear-gradient(0deg, #6b6b6b17 0px, #6b6b6b17 1px,transparent 1px, transparent 10px),
+    repeating-linear-gradient(90deg, #6b6b6b17 0px, #6b6b6b17 1px,transparent 1px, transparent 10px),
+    linear-gradient(0deg, #000,#111827);
+  }
+  header, footer{
+    background-image: radial-gradient(circle at center center, transparent,rgb(17,24,39)),
+    repeating-linear-gradient(135deg, rgb(17,24,39) 0px, rgb(17,24,39) 2px,transparent 2px, transparent 10px,rgb(17,24,39) 10px, rgb(17,24,39) 11px,transparent 11px, transparent 21px),
+    repeating-linear-gradient(45deg, rgba(55,65,81, 0.33) 0px, rgba(55,65,81, 0.33) 4px,transparent 4px, transparent 8px),
+    linear-gradient(90deg, rgb(17,24,39),rgb(17,24,39));
+  }
+
+  a:hover {
+    color: #959aff;
+  }
+  button {
+    background-color: #374151;
+  }
+  ::-webkit-scrollbar{
+    background: linear-gradient(0deg, #111827, #1F2937, #111827);
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb{
+      background-color: #4B5563;
+      width: 100%;
+      border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* gray-500 */
+  }
+
+  /* CUSTOM SCROLLBAR */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px; /* Scrollbar height */
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #1f2937; /* gray-800 */
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4b5563; /* gray-600 */
+    border-radius: 20px;
+    width: fit-content;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* gray-500 */
+  }
+}
