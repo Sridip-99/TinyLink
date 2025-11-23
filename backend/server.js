@@ -6,14 +6,14 @@ const { nanoid } = require('nanoid'); // Using nanoid v3 for CommonJS support
 const validator = require('validator');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 // Middleware
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 // Database Connection
-// Note: rejectUnauthorized: false is often required for hosted Postgres on Render/Neon
+// Note: rejectUnauthorized: false is often required for hosted Postgres on Vercel/Neon
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
