@@ -1,4 +1,82 @@
-<h1>TinyLink: A Modern URL Shortener Service</h1><h2>🔗 Project Overview</h2><p>TinyLink is a full-stack, scalable URL shortening service built to mimic popular platforms like Bit.ly. It allows users to condense long URLs into short, memorable links and provides real-time analytics on link performance.</p><p>This project was built as a demonstration of robust full-stack development, focusing on clean separation of concerns, API specification adherence, and efficient database querying for high-speed redirects.</p><h2>🚀 Features</h2><h3>Core Functionality</h3><ul><li><p><strong>Create Short Links:</strong> Shorten any long URL.</p></li><li><p><strong>Custom Codes:</strong> Users can optionally provide a custom alphanumeric code (6-8 characters) for vanity URLs. Handles conflict detection (409 status) if the code is already taken.</p></li><li><p><strong>High-Speed Redirection:</strong> Fast 302 redirect from the short code to the original destination.</p></li><li><p><strong>Click Analytics:</strong> Tracks and updates click counts and the last clicked timestamp on every successful redirect.</p></li><li><p><strong>Dashboard:</strong> View, copy, and delete all created links and monitor their statistics.</p></li></ul><h3>Tech Stack</h3><ul><li><p><strong>Frontend:</strong> React (Vite) with Tailwind CSS</p></li><li><p><strong>Backend:</strong> Node.js + Express</p></li><li><p><strong>Database:</strong> PostgreSQL (with <code>pg</code> for connection pooling)</p></li><li><p><strong>Libraries:</strong> <code>nanoid</code> (for short code generation), <code>validator</code> (for URL validation), <code>date-fns</code> (for frontend timestamp formatting).</p></li></ul><h2>🛠️ API Specification (Backend)</h2><p>The backend follows a RESTful design, implementing the required API endpoints as specified in the assignment.</p><table><tbody><tr><th><p>Method</p></th><th><p>Path</p></th><th><p>Description</p></th><th><p>Required Status Codes</p></th></tr><tr><td><p><code>GET</code></p></td><td><p><code>/healthz</code></p></td><td><p>Health Check</p></td><td><p><code>200 OK</code></p></td></tr><tr><td><p><code>POST</code></p></td><td><p><code>/api/links</code></p></td><td><p>Create a new short link. Accepts <code>url</code> and optional <code>shortCode</code>.</p></td><td><p><code>201 Created</code>, <code>400 Bad Request</code>, <code>409 Conflict</code></p></td></tr><tr><td><p><code>GET</code></p></td><td><p><code>/api/links</code></p></td><td><p>List all links in the database.</p></td><td><p><code>200 OK</code></p></td></tr><tr><td><p><code>GET</code></p></td><td><p><code>/api/links/:code</code></p></td><td><p>Retrieve stats for a specific short link.</p></td><td><p><code>200 OK</code>, <code>404 Not Found</code></p></td></tr><tr><td><p><code>DELETE</code></p></td><td><p><code>/api/links/:code</code></p></td><td><p>Delete a link by its short code.</p></td><td><p><code>204 No Content</code>, <code>404 Not Found</code></p></td></tr><tr><td><p><code>GET</code></p></td><td><p><code>/:code</code></p></td><td><p>Core Redirect Feature. Increments click count and redirects user.</p></td><td><p><code>302 Found</code>, <code>404 Not Found</code></p></td></tr></tbody></table><h2>⚙️ Setup and Deployment</h2><h3>1. Database</h3><p>The project requires a PostgreSQL database (e.g., hosted on Neon or Render).</p><p><strong>Schema:</strong></p><pre><code>CREATE TABLE links (
+# TinyLink: A Modern URL Shortener Service
+
+## 🔗 Project Overview
+
+TinyLink is a full-stack, scalable URL shortening service built to mimic
+popular platforms like Bit.ly.\
+It allows users to condense long URLs into short, memorable links and
+provides real-time analytics on link performance.
+
+This project was built as a demonstration of robust full-stack
+development, focusing on clean separation of concerns, API specification
+adherence, and efficient database querying for high-speed redirects.
+
+------------------------------------------------------------------------
+
+## 🚀 Features
+
+### **Core Functionality**
+
+-   **Create Short Links:** Shorten any long URL.\
+-   **Custom Codes:** Users can optionally provide a custom alphanumeric
+    code (6--8 characters) for vanity URLs.\
+    Handles conflict detection (`409`) if the code is already taken.\
+-   **High-Speed Redirection:** Fast `302` redirect from the short code
+    to the original destination.\
+-   **Click Analytics:** Tracks and updates click counts and the last
+    clicked timestamp on every successful redirect.\
+-   **Dashboard:** View, copy, and delete all created links and monitor
+    their statistics.
+
+### **Tech Stack**
+
+-   **Frontend:** React (Vite) + Tailwind CSS\
+-   **Backend:** Node.js + Express\
+-   **Database:** PostgreSQL (using `pg` for pooled connections)\
+-   **Libraries:** `nanoid` (short codes), `validator` (URL validation),
+    `date-fns` (timestamp formatting)
+
+------------------------------------------------------------------------
+
+## 🛠️ API Specification (Backend)
+
+The backend follows a RESTful design and implements the required API
+endpoints.
+
+  ----------------------------------------------------------------------------------
+  Method     Path                 Description                             Status
+                                                                          Codes
+  ---------- -------------------- --------------------------------------- ----------
+  `GET`      `/healthz`           Health check                            `200 OK`
+
+  `POST`     `/api/links`         Create a new short link (`url`,         `201`,
+                                  `shortCode`)                            `400`,
+                                                                          `409`
+
+  `GET`      `/api/links`         List all links                          `200 OK`
+
+  `GET`      `/api/links/:code`   Retrieve stats for a specific short     `200`,
+                                  link                                    `404`
+
+  `DELETE`   `/api/links/:code`   Delete a link by short code             `204`,
+                                                                          `404`
+
+  `GET`      `/:code`             Redirect feature + increment click      `302`,
+                                  count                                   `404`
+  ----------------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## ⚙️ Setup and Deployment
+
+### **1. Database**
+
+The project uses a PostgreSQL database (Neon/Render recommended).
+
+**Schema:**
+
+``` sql
+CREATE TABLE links (
     id SERIAL PRIMARY KEY,
     short_code VARCHAR(8) UNIQUE NOT NULL,
     original_url TEXT NOT NULL,
@@ -6,4 +84,55 @@
     last_clicked_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-<br class="ProseMirror-trailingBreak"></code></pre><h3>2. Backend Setup</h3><ol><li><p>Navigate to the <code>backend/</code> directory.</p></li><li><p>Install dependencies: <code>npm install</code></p></li><li><p>Create a <code>.env</code> file based on the provided <code>.env.example</code>.</p></li><li><p>Run in development: <code>npm run dev</code> (requires <code>nodemon</code>)</p></li></ol><h3>3. Frontend Setup</h3><ol><li><p>Navigate to the <code>frontend/</code> directory.</p></li><li><p>Install dependencies: <code>npm install</code></p></li><li><p>Update the <code>BACKEND_URL</code> variable in <code>frontend/src/App.jsx</code> to point to your deployed backend.</p></li><li><p>Run in development: <code>npm run dev</code></p></li></ol><h3>4. Deployment</h3><ul><li><p><strong>Backend:</strong> Deployed on <strong>Vercel</strong> (as a Web Service).</p></li><li><p><strong>Frontend:</strong> Deployed on <strong>Vercel</strong>.</p></li><li><p>The <code>DATABASE_URL</code> environment variable is crucial for the backend deployment.</p></li></ul>
+```
+
+------------------------------------------------------------------------
+
+### **2. Backend Setup**
+
+1.  Go to the `backend/` directory.\
+
+2.  Install dependencies:
+
+    ``` bash
+    npm install
+    ```
+
+3.  Create a `.env` file using `.env.example` as reference.\
+
+4.  Run in development (requires `nodemon`):
+
+    ``` bash
+    npm run dev
+    ```
+
+------------------------------------------------------------------------
+
+### **3. Frontend Setup**
+
+1.  Go to the `frontend/` directory.\
+
+2.  Install dependencies:
+
+    ``` bash
+    npm install
+    ```
+
+3.  Update the `BACKEND_URL` inside `frontend/src/App.jsx`.\
+
+4.  Run in development:
+
+    ``` bash
+    npm run dev
+    ```
+
+------------------------------------------------------------------------
+
+### **4. Deployment**
+
+-   **Backend:** Vercel (Web Service)\
+-   **Frontend:** Vercel\
+-   Ensure the backend has the correct `DATABASE_URL` environment
+    variable.
+
+------------------------------------------------------------------------
