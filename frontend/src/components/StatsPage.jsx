@@ -7,7 +7,6 @@ import { AppContext } from '../context/context.js';
 
 const StatsPage = () => {
   const { code } = useParams();
-  // const navigate = useNavigate();
   const [link, setLink] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
