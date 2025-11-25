@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Loading from './components/Loading.jsx';
+import { AppContext } from './context/context.js';
 import Header from './components/Header.jsx';
 import Main from './components/Main.jsx';
 import Footer from './components/Footer.jsx';
+import axios from 'axios';
 
-// --- MAIN APP COMPONENT ---
 function App() {
+  // --- CONFIGURATION ---
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  // --- API HELPER ---
+  const api = axios.create({ baseURL: BACKEND_URL });
+
   const [loading, setLoading] = useState(true)
+
 
   useEffect(() => {
     const onLoad = () => setLoading(false)
@@ -26,9 +33,11 @@ function App() {
 
   return (
       <div className="min-h-screen">
+        <AppContext.Provider value={{ BACKEND_URL, api }}> 
         <Header />
         <Main />
         <Footer />
+        </AppContext.Provider>
       </div>
   );
 }

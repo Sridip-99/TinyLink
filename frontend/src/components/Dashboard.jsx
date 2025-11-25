@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useContext } from 'react';
 import { Loader2 } from 'lucide-react';
+import { AppContext } from '../context/context.js';
 import CreateLinkForm from './CreateLinkForm.jsx';
 import LinkItem from './LinkItem.jsx';
 import Hero from './Hero.jsx';
 import FAQ from './FAQ.jsx';
 
-// --- CONFIGURATION ---
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-// --- API HELPER ---
-const api = axios.create({ baseURL: BACKEND_URL });
 
 const Dashboard = () => {
+  const api = useContext(AppContext).api;
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);

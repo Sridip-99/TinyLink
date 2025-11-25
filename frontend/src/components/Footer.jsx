@@ -1,4 +1,3 @@
-import React from 'react'
 import { PiHeartStraightBold } from "react-icons/pi";
 
 const Footer = () => {

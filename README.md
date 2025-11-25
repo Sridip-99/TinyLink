@@ -118,9 +118,9 @@ CREATE TABLE links (
     npm install
     ```
 
-3.  Update the `BACKEND_URL` inside `frontend/src/App.jsx`.\
+3.  set the `VITE_BACKEND_URL` environment variable in a `.env` file, or update the `BACKEND_URL` inside `frontend/src/App.jsx`.\
 
-4.  Run in development:
+5.  Run in development:
 
     ``` bash
     npm run dev

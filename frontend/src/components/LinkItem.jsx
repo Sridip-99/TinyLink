@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import {  Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Copy, Trash2, BarChart2, ExternalLink, CheckCircle, } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { AppContext } from '../context/context.js';
 
-// --- CONFIGURATION ---
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const LinkItem = ({ link, onDelete }) => {
   const [copied, setCopied] = useState(false);
@@ -12,7 +11,8 @@ const LinkItem = ({ link, onDelete }) => {
   // LocalStorage check: Do I own this link?
   const myLinks = JSON.parse(localStorage.getItem('myLinks') || '[]');
   const isMine = myLinks.includes(link.short_code);
-
+  
+  const BACKEND_URL = useContext(AppContext).BACKEND_URL; 
   const shortUrl = `${BACKEND_URL}/${link.short_code}`;
 
   const handleCopy = () => {

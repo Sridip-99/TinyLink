@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useContext } from 'react';
 import {  AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
-
-// --- CONFIGURATION ---
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-// --- API HELPER ---
-const api = axios.create({ baseURL: BACKEND_URL });
+import { AppContext } from '../context/context.js';
 
 const CreateLinkForm = ({ onLinkCreated }) => {
+  const api = useContext(AppContext).api;
   const [url, setUrl] = useState('');
   const [customCode, setCustomCode] = useState('');
   const [loading, setLoading] = useState(false);

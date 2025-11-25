@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState, useEffect, useContext} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { ExternalLink, Loader2 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { AppContext } from '../context/context.js';
 
-// --- CONFIGURATION ---
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-// --- API HELPER ---
-const api = axios.create({ baseURL: BACKEND_URL });
 
 const StatsPage = () => {
   const { code } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [link, setLink] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
+  const BACKEND_URL = useContext(AppContext).BACKEND_URL; 
+  const api = useContext(AppContext).api;
+  
   useEffect(() => {
     const fetchStats = async () => {
       try {
